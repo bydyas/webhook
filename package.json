@@ -1,6 +1,6 @@
 {
-  "name": "bohdan-shkaran-webhook",
-  "version": "0.0.0",
+  "name": "webhook-app",
+  "version": "1.0.0",
   "private": true,
   "description": "",
   "author": "",
@@ -14,8 +14,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
+    "@common/eslint-config": "*",
+    "@common/typescript-config": "*",
     "prettier": "^3.2.5",
     "turbo": "^2.7.5"
   },

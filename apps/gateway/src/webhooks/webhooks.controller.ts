@@ -13,7 +13,7 @@ export class WebhooksController {
     status: 201,
     description: 'Marketing events forwarded successfully.',
   })
-  async forwardMarketingEvents(@Body() events: any[]): Promise<boolean> {
+  async forwardMarketingEvents(@Body() events: any[]): Promise<void> {
     return this.webhooksService.forwardMarketingEvents(events);
   }
 }

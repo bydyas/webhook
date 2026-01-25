@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -11,9 +12,7 @@ import { AppConfig } from './app.config';
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter({
-      bodyLimit: 25 * 1024 * 1024, // 25 MB
-    }),
+    new FastifyAdapter(),
   );
   const appConfig = app.get(AppConfig);
 
@@ -25,10 +24,22 @@ async function bootstrap() {
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(appConfig.apiPrefix, app, documentFactory);
-
+  console.log(
+    'Connecting to NATS servers:',
+    JSON.stringify(appConfig.natsServers),
+  );
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.NATS,
+    options: {
+      servers: appConfig.natsServers,
+      queue: appConfig.natsQueueName,
+      debug: true,
+    },
+  });
   app.enableCors();
   app.setGlobalPrefix(appConfig.apiPrefix);
 
+  await app.startAllMicroservices();
   await app.listen(appConfig.port, appConfig.host);
 }
 

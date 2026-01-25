@@ -1,4 +1,13 @@
 services:
+  nats:
+    image: nats:latest
+    container_name: webhook-nats
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+      - "6222:6222"
+    restart: unless-stopped
+
   gateway:
     build:
       context: .
@@ -8,10 +17,32 @@ services:
       - "3000:3000"
     environment:
       PORT: 3000
+      NATS_SERVERS: '["nats://nats:4222"]'
     restart: unless-stopped
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 40s
+    depends_on:
+      - nats
+
+  marketing:
+    build:
+      context: .
+      dockerfile: apps/marketing/Dockerfile
+    container_name: webhook-marketing
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: 3001
+      NATS_SERVERS: '["nats://nats:4222"]'
+    restart: unless-stopped
+    depends_on:
+      - nats
+
+  events:
+    image: andriiuni/events
+    ports:
+      - 3002:3002
+    environment:
+      - EVENT_ENDPOINT=http://gateway:3000/api/marketing/webhook
+    restart: unless-stopped
+    depends_on:
+      - gateway
+      - marketing

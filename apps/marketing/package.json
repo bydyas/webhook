@@ -1,5 +1,5 @@
 {
-  "name": "gateway",
+  "name": "marketing",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -22,7 +22,6 @@
     "@nestjs/microservices": "11.1.12",
     "@fastify/static": "9.0.0",
     "nats": "2.29.3",
-    "body-parser": "2.2.2",
     "nestjs-env-getter": "1.0.0",
     "reflect-metadata": "0.2.2",
     "rxjs": "7.8.2"

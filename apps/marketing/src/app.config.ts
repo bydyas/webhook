@@ -16,10 +16,13 @@ export class AppConfig {
   constructor(private readonly envGetter: EnvGetterService) {
     this.port = this.envGetter.getRequiredNumericEnv('PORT');
     this.host = this.envGetter.getOptionalEnv('HOST', '0.0.0.0');
-    this.serviceName = this.envGetter.getOptionalEnv('SERVICE_NAME', 'gateway');
+    this.serviceName = this.envGetter.getOptionalEnv(
+      'SERVICE_NAME',
+      'marketing',
+    );
     this.serviceDescription = this.envGetter.getOptionalEnv(
       'SERVICE_DESCRIPTION',
-      'API Gateway Service',
+      'API Marketing Service',
     );
     this.version = this.envGetter.getOptionalEnv('VERSION', version);
     this.apiPrefix = this.envGetter.getOptionalEnv('API_PREFIX', 'api');

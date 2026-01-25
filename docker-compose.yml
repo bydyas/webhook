@@ -16,8 +16,9 @@ services:
     ports:
       - "3000:3000"
     environment:
-      PORT: 3000
-      NATS_SERVERS: '["nats://nats:4222"]'
+      - NODE_ENV=production
+      - PORT=3000
+      - NATS_SERVERS=["nats://nats:4222"]
     restart: unless-stopped
     depends_on:
       - nats
@@ -30,11 +31,19 @@ services:
     ports:
       - "3001:3001"
     environment:
-      PORT: 3001
-      NATS_SERVERS: '["nats://nats:4222"]'
+      - NODE_ENV=production
+      - PORT=3001
+      - NATS_SERVERS=["nats://nats:4222"]
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_NAME=root
+      - DB_TYPE=postgres
     restart: unless-stopped
     depends_on:
       - nats
+      - postgres
 
   events:
     image: andriiuni/events
@@ -46,3 +55,30 @@ services:
     depends_on:
       - gateway
       - marketing
+
+  postgres:
+    image: postgres:16.11
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=root
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=root@root.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:

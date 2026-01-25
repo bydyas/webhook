@@ -9,13 +9,9 @@ import { AppConfig } from '../app.config';
     ClientsModule.registerAsync([
       {
         name: 'NATS_SERVICE',
-        useFactory: ({ natsQueueName, natsServers }: AppConfig) => ({
+        useFactory: ({ natsOptions }: AppConfig) => ({
           transport: Transport.NATS,
-          options: {
-            servers: natsServers,
-            queue: natsQueueName,
-            debug: true,
-          },
+          options: natsOptions,
         }),
         inject: [AppConfig],
       },

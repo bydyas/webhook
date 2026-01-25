@@ -9,7 +9,7 @@ export class SocialNetworksController {
   constructor(private readonly socialNetworksService: SocialNetworksService) {}
 
   @EventPattern('marketing.forwarded')
-  async ingestEvents(@Payload() event: any): Promise<void> {
-    return this.socialNetworksService.ingestEvents(event);
+  async ingestEvents(@Payload() event: any): Promise<unknown> {
+    return this.socialNetworksService.ingestEvents(JSON.parse(event));
   }
 }

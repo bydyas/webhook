@@ -1,0 +1,21 @@
+{
+  "eventId": "ttk-e4a15421-b14b-4933-9b63-2f997e906fb5",
+  "timestamp": "2026-01-25T17:31:13.660Z",
+  "source": "tiktok",
+  "funnelStage": "top",
+  "eventType": "like",
+  "data": {
+    "user": {
+      "userId": "ec512eca-fee0-4781-b53f-4a86430bd46c",
+      "username": "Ressie7",
+      "followers": 311578
+    },
+    "engagement": {
+      "watchTime": 72,
+      "percentageWatched": 81,
+      "device": "Android",
+      "country": "Ecuador",
+      "videoId": "vid-xFvZ4EFd"
+    }
+  }
+}

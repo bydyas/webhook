@@ -24,17 +24,10 @@ async function bootstrap() {
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(appConfig.apiPrefix, app, documentFactory);
-  console.log(
-    'Connecting to NATS servers:',
-    JSON.stringify(appConfig.natsServers),
-  );
+
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.NATS,
-    options: {
-      servers: appConfig.natsServers,
-      queue: appConfig.natsQueueName,
-      debug: true,
-    },
+    options: appConfig.natsOptions,
   });
   app.enableCors();
   app.setGlobalPrefix(appConfig.apiPrefix);

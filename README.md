@@ -1,4 +1,4 @@
-[![Webhook CI](https://github.com/bydyas/webhook/actions/workflows/webhook.yml/badge.svg?branch=main)](https://github.com/bydyas/webhook/actions/workflows/webhook.yml)
+[![Webhook CI](https://github.com/bydyas/webhook/actions/workflows/webhook.yml/badge.svg?branch=main&event=status)](https://github.com/bydyas/webhook/actions/workflows/webhook.yml)
 
 # Test Task — Backend Engineer (Node.js | NATS)
 

@@ -1,3 +1,5 @@
+[![Webhook CI](https://github.com/bydyas/webhook/actions/workflows/webhook.yml/badge.svg?branch=main)](https://github.com/bydyas/webhook/actions/workflows/webhook.yml)
+
 # Test Task — Backend Engineer (Node.js | NATS)
 
 * [Task Notion](https://opaque-production-68e.notion.site/Test-Task-Backend-Engineer-Node-js-NATS-29dce9899cb7804d9934d22be768a486)

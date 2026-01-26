@@ -25,6 +25,7 @@ COPY .gitignore .gitignore
 RUN yarn turbo run build --filter=marketing
 
 FROM node:${NODE_VERSION} AS runner
+RUN apk add --no-cache wget
 WORKDIR /app
 COPY --from=sourcer /app/ .
 

@@ -1,34 +1,37 @@
 {
-  "name": "marketing",
-  "version": "0.0.0",
+  "name": "@common/health",
+  "version": "1.0.0",
   "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/src/index.js",
   "scripts": {
-    "dev": "nest start --watch",
-    "build": "nest build",
-    "start": "nest start",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\""
   },
+  "exports": {
+    ".": {
+      "import": "./dist/src/index.js",
+      "require": "./dist/src/index.js",
+      "types": "./dist/src/index.d.ts"
+    },
+    "./*": {
+      "import": "./dist/src/*.js",
+      "require": "./dist/src/*.js",
+      "types": "./dist/src/*.d.ts"
+    }
+  },
   "dependencies": {
-    "@common/health": "*",
-    "@fastify/static": "9.0.0",
-    "@nestjs/common": "11.1.11",
-    "@nestjs/core": "11.1.11",
-    "@nestjs/microservices": "11.1.12",
-    "@nestjs/platform-fastify": "11.1.12",
-    "@nestjs/swagger": "11.2.5",
-    "@nestjs/typeorm": "11.0.0",
-    "nats": "2.29.3",
-    "nestjs-env-getter": "1.0.0",
-    "pg": "^8.17.2",
-    "reflect-metadata": "0.2.2",
-    "rxjs": "7.8.2",
-    "typeorm": "0.3.28"
+    "@nestjs/swagger": "11.2.5"
+  },
+  "peerDependencies": {
+    "@nestjs/common": ">=11",
+    "rxjs": "^7.0.0"
   },
   "devDependencies": {
     "@common/eslint-config": "*",

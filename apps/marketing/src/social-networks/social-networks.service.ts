@@ -10,6 +10,15 @@ export class SocialNetworksService {
     private eventsRepository: Repository<SocialEvent>,
   ) {}
 
+  /**
+   * Ingest a social event into the database
+   *
+   * Creates a new social event entity from the provided data and persists it to the database.
+   * Errors during the save operation are caught and logged to the console.
+   *
+   * @param event - The social event data to be ingested
+   * @returns A promise that resolves when the event has been successfully saved
+   */
   async ingestEvents(event: any): Promise<void> {
     try {
       const socialEvent = this.eventsRepository.create(event);

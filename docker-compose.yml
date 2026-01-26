@@ -1,12 +1,18 @@
 services:
   nats:
-    image: nats:latest
+    image: nats:2.12.3-alpine
     container_name: webhook-nats
     ports:
       - "4222:4222"
       - "8222:8222"
       - "6222:6222"
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8222/healthz"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
 
   gateway:
     build:
@@ -20,8 +26,15 @@ services:
       - PORT=3000
       - NATS_SERVERS=["nats://nats:4222"]
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
     depends_on:
-      - nats
+      nats:
+        condition: service_healthy
 
   marketing:
     build:
@@ -41,9 +54,17 @@ services:
       - DB_NAME=root
       - DB_TYPE=postgres
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3001/api/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
     depends_on:
-      - nats
-      - postgres
+      nats:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
 
   events:
     image: andriiuni/events
@@ -53,8 +74,10 @@ services:
       - EVENT_ENDPOINT=http://gateway:3000/api/marketing/webhook
     restart: unless-stopped
     depends_on:
-      - gateway
-      - marketing
+      gateway:
+        condition: service_healthy
+      marketing:
+        condition: service_healthy
 
   postgres:
     image: postgres:16.11
@@ -68,6 +91,11 @@ services:
       - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   pgadmin:
     image: dpage/pgadmin4
@@ -78,7 +106,8 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
 
 volumes:
   postgres_data:

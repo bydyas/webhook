@@ -20,7 +20,6 @@ async function bootstrap() {
     .setTitle(appConfig.serviceName)
     .setDescription(appConfig.serviceDescription)
     .setVersion(appConfig.version)
-    .addTag(appConfig.serviceName)
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(appConfig.apiPrefix, app, documentFactory);

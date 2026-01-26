@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { NatsOptions } from '@nestjs/microservices';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { log } from 'console';
 import { EnvGetterService } from 'nestjs-env-getter';
 import { version } from 'package.json';
 

@@ -1,22 +1,29 @@
+import {
+  MetadataDto,
+  SocialNetworkEventDto,
+  FunnelStage,
+  FacebookEventType,
+  TiktokEventType,
+} from '@common/contracts';
 import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'events' })
-export class SocialEvent {
-  @PrimaryColumn()
+export class SocialEvent implements SocialNetworkEventDto {
+  @PrimaryColumn({ unique: true })
   eventId: string;
 
   @Column()
   timestamp: string;
 
   @Column()
-  source: string;
+  source: 'facebook' | 'tiktok';
 
   @Column()
-  funnelStage: string;
+  funnelStage: FunnelStage;
 
   @Column()
-  eventType: string;
+  eventType: FacebookEventType | TiktokEventType;
 
   @Column({ type: 'jsonb' })
-  data: unknown;
+  data: MetadataDto;
 }

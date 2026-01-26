@@ -13,3 +13,9 @@ export interface HealthModuleAsyncOptions extends Pick<
     ...args: any[]
   ) => Promise<HealthModuleOptions> | HealthModuleOptions;
 }
+
+export interface HealthCheckResult {
+  status: string;
+  service: string;
+  timestamp: string;
+}

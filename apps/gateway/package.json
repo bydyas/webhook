@@ -29,6 +29,7 @@
     "rxjs": "7.8.2"
   },
   "devDependencies": {
+    "@common/contracts": "*",
     "@common/eslint-config": "*",
     "@common/jest-config": "*",
     "@common/typescript-config": "*",

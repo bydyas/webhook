@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { NatsOptions } from '@nestjs/microservices';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { log } from 'console';
 import { EnvGetterService } from 'nestjs-env-getter';
 import { version } from 'package.json';
 
@@ -51,7 +52,8 @@ export class AppConfig {
       database: this.envGetter.getRequiredEnv('DB_NAME'),
       type: this.envGetter.getRequiredEnv('DB_TYPE'),
       autoLoadEntities: true,
-      synchronize: this.isDevelopment,
+      synchronize: true, // TODO: this.isDevelopment + handle migrations for production,
+      logging: this.isDevelopment ? 'all' : false,
     };
   }
 }

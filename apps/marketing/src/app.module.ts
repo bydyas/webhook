@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppConfigModule } from 'nestjs-env-getter';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HealthModule } from '@common/health';
+import { LoggerModule } from '@common/logger';
 import { SocialNetworksModule } from './social-networks/social-networks.module';
 import { AppConfig } from './app.config';
 
@@ -9,6 +10,12 @@ import { AppConfig } from './app.config';
   imports: [
     AppConfigModule.forRoot({ useClass: AppConfig }),
     HealthModule.forRootAsync({
+      useFactory: ({ serviceName }: AppConfig) => ({
+        name: serviceName,
+      }),
+      inject: [AppConfig],
+    }),
+    LoggerModule.forRootAsync({
       useFactory: ({ serviceName }: AppConfig) => ({
         name: serviceName,
       }),

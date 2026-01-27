@@ -1,18 +1,18 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { SocialEvent } from './entities';
-import { SocialNetworkEventDto } from '@common/contracts';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
+import { Repository } from 'typeorm';
+import { SocialNetworkEventDto } from '@common/contracts';
+import { LoggerService } from '@common/logger';
+import { SocialEvent } from './entities';
 
 @Injectable()
 export class SocialNetworksService {
-  private readonly logger = new Logger(SocialNetworksService.name);
-
   constructor(
     @InjectRepository(SocialEvent)
     private eventsRepository: Repository<SocialEvent>,
+    private readonly logger: LoggerService,
   ) {}
 
   //#region PUBLIC METHODS
@@ -30,7 +30,7 @@ export class SocialNetworksService {
 
     return this.validateEvent(event)
       .then((ev) => this.persistEvent(ev))
-      .catch((error) => console.log(error));
+      .catch((error) => this.logger.error(error.message));
   }
 
   //#endregion PUBLIC METHODS
@@ -54,9 +54,7 @@ export class SocialNetworksService {
 
       return;
     } catch (error) {
-      throw new Error(
-        `[${event.eventId}]: Persistence failed: ${JSON.stringify(error)}.`,
-      );
+      throw new Error(`Persistence failed: ${JSON.stringify(error)}.`);
     }
   }
 
@@ -82,9 +80,7 @@ export class SocialNetworksService {
     });
 
     if (errors.length > 0) {
-      throw new Error(
-        `[${event.eventId}]: Validation failed: ${JSON.stringify(errors)}.`,
-      );
+      throw new Error(`Validation failed: ${JSON.stringify(errors)}.`);
     }
 
     return event;

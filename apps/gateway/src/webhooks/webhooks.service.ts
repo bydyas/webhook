@@ -1,13 +1,13 @@
 import { NatsEvents, SocialNetworkEventDto } from '@common/contracts';
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { LoggerService } from '@common/logger';
+import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class WebhooksService {
-  private readonly logger = new Logger(WebhooksService.name);
-
   constructor(
     @Inject('NATS_SERVICE') private readonly natsClient: ClientProxy,
+    private readonly logger: LoggerService,
   ) {}
 
   /**

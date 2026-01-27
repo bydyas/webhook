@@ -4,3 +4,4 @@ export type {
   LoggerModuleOptions,
   LoggerModuleAsyncOptions,
 } from './logger.types';
+export { MockedLoggerProvider } from './test/logger.mock';

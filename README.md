@@ -1,21 +1,29 @@
 [![Webhook CI](https://github.com/bydyas/webhook/actions/workflows/webhook.yml/badge.svg)](https://github.com/bydyas/webhook/actions/workflows/webhook.yml)
 
-# Test Task — Backend Engineer (Node.js | NATS)
+# Test Task — Backend Engineer
 
-* [Task Notion](https://opaque-production-68e.notion.site/Test-Task-Backend-Engineer-Node-js-NATS-29dce9899cb7804d9934d22be768a486)
+* [Useful links](#useful-links)
+* [Structure](#structure)
+* [How to run](#how-to-run)
+* [Swagger](#swagger)
+* [Database](#monitor-db)
+* [NATS](#nats-stats)
 
-* [Trello Dashboard](https://trello.com/b/iSyTRhiX/test-task-backend-engineer-nodejs-nats)
+## Structure
+![Schema](image.png)
+
+Monorepo (Turborepo) has some microservices: **gateway**, **marketing**, **analytics** (in progress) - and some custom shared libs, such as **@common/contacts**, **@common/health**, **@common/logger**, and jest&eslint&prettier configs.
 
 ## How to run
-Start the application with dependencies
+Start the application with all dependencies
 ```
 docker-compose up
 ```
 
-### Swagger
-Each service has [swagger doc](http://localhost:300/api) to trigger endpoints ad-hoc.
+## Swagger
+**gateway** & **analytics** services have ==[Swagger](http://localhost:300/api)== to trigger endpoints _ad-hoc_.
 
-### Monitor DB
+## Monitor DB
 
 Go to [pgAdmin](http://localhost:8080/browser/)
 ```
@@ -28,5 +36,20 @@ Query the events table
 SELECT * FROM events
 ```
 
-### NATS Stats
-Go to [NATS](http://localhost:8222/varz)
+## NATS Stats
+Go to [NATS dashboard](http://localhost:8222/varz)
+
+
+## Pitfalls
+
+Search for ```TODO:``` in code for more deatails:
+
+1. NATS Cores should be replaced with NATS JetStream
+2. Bulk insert to DB
+3. Better to use Grafana instead saving logs locally (Winston)
+4. Migrations are needed for prod
+
+## Useful links
+
+1. [Task Notion](https://opaque-production-68e.notion.site/Test-Task-Backend-Engineer-Node-js-NATS-29dce9899cb7804d9934d22be768a486)
+2. [Trello Dashboard](https://trello.com/b/iSyTRhiX/test-task-backend-engineer-nodejs-nats)

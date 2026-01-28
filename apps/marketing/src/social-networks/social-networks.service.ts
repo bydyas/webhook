@@ -47,7 +47,7 @@ export class SocialNetworksService {
    */
   private async persistEvent(event: SocialNetworkEventDto): Promise<void> {
     this.logger.debug(`Persisting event: ${event.eventId}.`);
-
+    // TODO: Get chuncks of events to bulk insert
     try {
       const socialEvent = this.eventsRepository.create(event);
       await this.eventsRepository.save(socialEvent);

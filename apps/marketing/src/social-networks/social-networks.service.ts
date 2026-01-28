@@ -3,9 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
 import { Repository } from 'typeorm';
-import { SocialNetworkEventDto } from '@common/contracts';
+import { SocialEvent, SocialNetworkEventDto } from '@common/contracts';
 import { LoggerService } from '@common/logger';
-import { SocialEvent } from './entities';
 
 @Injectable()
 export class SocialNetworksService {

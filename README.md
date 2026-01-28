@@ -21,7 +21,8 @@ docker-compose up
 ```
 
 ## Swagger
-**gateway** & **analytics** services have ==[Swagger](http://localhost:300/api)== to trigger endpoints _ad-hoc_.
+[gateway](http://localhost:3000/api) & [analytics](http://localhost:3003/api) services have **Swagger** to trigger endpoints _ad-hoc_.
+
 
 ## Monitor DB
 

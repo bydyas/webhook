@@ -17,7 +17,9 @@ export class WebhooksService {
    * @param events - Array of events to forward to the marketing service
    * @returns Promise that resolves when all events have been emitted
    */
-  async forwardMarketingEvents(events: SocialNetworkEventDto[]): Promise<void> {
+  async forwardMarketingEvents(
+    events: SocialNetworkEventDto[],
+  ): Promise<boolean> {
     /* TODO: Consider switching to NATS JetStream to send larger msgs and persist them.
      * It needs some time to research and implement custom jetsream module
      * as current library @nestjs/microservices does not support it out of the box.
@@ -31,5 +33,7 @@ export class WebhooksService {
         JSON.stringify(event),
       );
     });
+
+    return true;
   }
 }

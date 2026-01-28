@@ -66,6 +66,33 @@ services:
       postgres:
         condition: service_healthy
 
+  analytics:
+    build:
+      context: .
+      dockerfile: apps/analytics/Dockerfile
+    container_name: webhook-analytics
+    ports:
+      - "3003:3003"
+    environment:
+      - NODE_ENV=production
+      - PORT=3003
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_NAME=root
+      - DB_TYPE=postgres
+    restart: always
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3003/api/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   events:
     image: andriiuni/events
     ports:

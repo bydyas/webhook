@@ -16,7 +16,7 @@ export class WebhooksController {
   })
   async forwardMarketingEvents(
     @Body() events: SocialNetworkEventDto[],
-  ): Promise<void> {
+  ): Promise<boolean> {
     return this.webhooksService.forwardMarketingEvents(events);
   }
 }

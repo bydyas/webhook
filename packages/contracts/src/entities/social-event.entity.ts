@@ -1,11 +1,6 @@
-import {
-  MetadataDto,
-  SocialNetworkEventDto,
-  FunnelStage,
-  FacebookEventType,
-  TiktokEventType,
-} from '@common/contracts';
 import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { MetadataDto, SocialNetworkEventDto } from '../dto';
+import { FacebookEventType, FunnelStage, TiktokEventType } from '../types';
 
 @Entity({ name: 'events' })
 export class SocialEvent implements SocialNetworkEventDto {

@@ -10,7 +10,7 @@
 * [NATS](#nats-stats)
 
 ## Structure
-![Schema](image.png)
+![Schema](docs/image1.png)
 
 Monorepo (Turborepo) has some microservices: **gateway**, **marketing**, **analytics** (in progress) - and some custom shared libs, such as **@common/contacts**, **@common/health**, **@common/logger**, and jest&eslint&prettier configs.
 
@@ -25,11 +25,15 @@ docker-compose up
 
 ## Monitor DB
 
-Go to [pgAdmin](http://localhost:8080/browser/)
+Log into [pgAdmin](http://localhost:8080/browser/)
 ```
 username: root@root.com
 pwd: root
 ```
+
+Connect to DB:
+
+![Schema](docs/image.png)
 
 Query the events table
 ```

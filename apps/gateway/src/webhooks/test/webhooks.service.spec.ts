@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { describe, it, beforeEach, expect, jest } from '@jest/globals';
-import { MockedLoggerProvider } from '@common/logger';
+import { MockedLoggerServiceProvider } from '@common/logger';
 import { WebhooksService } from '../webhooks.service';
 
 describe('WebhooksService', () => {
@@ -16,7 +16,7 @@ describe('WebhooksService', () => {
             emit: jest.fn(),
           },
         },
-        MockedLoggerProvider,
+        MockedLoggerServiceProvider,
       ],
     }).compile();
 

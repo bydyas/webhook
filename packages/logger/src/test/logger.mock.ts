@@ -1,13 +1,14 @@
-import { jest } from '@jest/globals';
 import { LoggerService } from '../logger.service';
 
-export const MockedLoggerProvider = {
+export const MockedLogger = {
+  log: () => {},
+  error: () => {},
+  warn: () => {},
+  debug: () => {},
+  verbose: () => {},
+};
+
+export const MockedLoggerServiceProvider = {
   provide: LoggerService,
-  useValue: {
-    log: jest.fn(),
-    error: jest.fn(),
-    warn: jest.fn(),
-    debug: jest.fn(),
-    verbose: jest.fn(),
-  },
+  useValue: MockedLogger,
 };

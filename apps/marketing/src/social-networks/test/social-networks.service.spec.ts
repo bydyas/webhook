@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { describe, it, beforeEach, expect, jest } from '@jest/globals';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { MockedLoggerProvider } from '@common/logger';
+import { MockedLoggerServiceProvider } from '@common/logger';
 import { SocialNetworksService } from '../social-networks.service';
 import { SocialEvent } from '../entities';
 
@@ -19,7 +19,7 @@ describe('SocialNetworksService', () => {
             save: jest.fn(),
           },
         },
-        MockedLoggerProvider,
+        MockedLoggerServiceProvider,
       ],
     }).compile();
 
